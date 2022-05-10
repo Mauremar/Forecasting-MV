@@ -20,7 +20,6 @@
 #install.packages("mFilter")
 #install.packages("tseries")
 #install.packages("forecast")
-install.packages("developer")
 #load the packages
 library(readxl)
 library(tidyverse)
@@ -30,7 +29,7 @@ library(vars)
 library(mFilter)
 library(tseries)
 library(forecast)
-library(developer)
+
 
 # privat
 setwd("C:/Users/marcm/OneDrive/One_Note/TUHH/Projektseminar/Datenanalyse R")
@@ -70,16 +69,41 @@ x1
 
 
 #------------Einschub Forecasting
-ggplot(data=Jahrx)+ geom_point(mapping = aes(x=Fc_and_order,y=Billing))
-# declare time series variables
-Bill<-ts(Jahrx$Billing,start = c(201400),frequency = 52)
-# bedeutet der startpunkt ist im dritten Monat von 1999 und die daten
-# gibt es vierteljählich (=4), wäres es monatlich wäre es 12
-Fc<- ts(Jahrx$Fc_and_order,start = c(201400),frequency = 52)
-# plot the series
-autoplot(cbind(Bill,Fc))
+# ggplot(data=Jahrx)+ geom_point(mapping = aes(x=Fc_and_order,y=Billing))
+# # declare time series variables
+# Bill<-ts(Jahrx$Billing,start = c(201400),frequency = 13)
+# Bill
+# # bedeutet der startpunkt ist im dritten Monat von 1999 und die daten
+# # gibt es vierteljählich (=4), wäres es monatlich wäre es 12
+# Fc<- ts(Jahrx$Fc_and_order,start = c(201400),frequency = 12)
+# # plot the series
+# autoplot(cbind(Bill,Fc))
+# 
+# #OLS
+# OLS1 <- lm(Bill~Fc)
+#      # Fc ist independent, Bill ist dependent
+#      # das heisst wir gehen davon aus, dass Bill von Fc abhängig ist,
+#      # bei der VAR methode wissen wir es allerdings nicht und lassen die
+#      #Daten für sich sprechen
+#      summary(OLS1)
+#   #Einschub, da Bill noch nicht numerisch ist 
+#   Bill   
+#   Bill<- as.numeric(Bill)
+#   #Determine the persisitence of the ode,
+#      #by determining the acf und p(partial)acf
+#      # acf beschreibt, ob es einen signifikanten zusammenhang zwischen
+#      #beobacteten Messeeregbnissen zu unterschiedlichen Beobachtungszeitpkt
+#      #gibt. richtung 1 bedeutet signifikanter zusammenhang
+#      # Kreuzkorrelation könnte auch interessant sein
+#     acf(Bill, main="ACF for Billing")
+#     pacf(Bill, main="PACF for Billing")
+#     #!acf ist nur aussagekräftig, wenn ich nicht 13 gleiche Billings habe!
+#     # müsste also zwei unterschiedlich große Matritzen erstellen?
+#     acf(Fc, main="ACF for Forecast and Order")
+#     pacf(Fc, main="PACF for Forecast and Order")
 
-#OLS
+# änderungsvorschlag, wir nehmen die differenz, statt das Billing und Fc über 
+# Fc_date aufgetragen
 
 #--Einschub Forecast Ende
 
@@ -304,3 +328,17 @@ x2 %>%
 #       plot(Stability1)
 #       # hopefully no points which exeeds the both confidence intervals (red)
 #     
+#------------------Notizen----------------------
+# neue Matrix erstellen 
+# Schema: a bsp. von Product 19
+#due Date|Fc für Fc_woche 1|....|Fc für Fc Woche 13| Billing|Diff1|...|Diff13
+# welchen vorteil hätten wir durch eine solche Matrix? 
+#+ immer nur ein Billing pro due date
+#+ einzelne Forcasts nach wochen geordnet 
+## was muss dafür getan werden 
+
+# weitere Matrix zu erstellen für Due Date 
+#Schema: 
+
+#------------Fragen----------------
+# wie kombiniere ich nur ein Due Date mit einem Billing für 13 Forecasts
