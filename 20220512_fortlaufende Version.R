@@ -1,4 +1,4 @@
-#Version 20220510_3 
+#Version 20220512_5 
 #Fortlaufende Version
 # Versuch eine fortlaufende Version zu erstellen 
 
@@ -69,41 +69,62 @@ x1
 
 
 #------------Einschub Forecasting
-# ggplot(data=Jahrx)+ geom_point(mapping = aes(x=Fc_and_order,y=Billing))
-# # declare time series variables
-# Bill<-ts(Jahrx$Billing,start = c(201400),frequency = 13)
-# Bill
-# # bedeutet der startpunkt ist im dritten Monat von 1999 und die daten
-# # gibt es vierteljählich (=4), wäres es monatlich wäre es 12
-# Fc<- ts(Jahrx$Fc_and_order,start = c(201400),frequency = 12)
-# # plot the series
-# autoplot(cbind(Bill,Fc))
-# 
-# #OLS
-# OLS1 <- lm(Bill~Fc)
-#      # Fc ist independent, Bill ist dependent
-#      # das heisst wir gehen davon aus, dass Bill von Fc abhängig ist,
-#      # bei der VAR methode wissen wir es allerdings nicht und lassen die
-#      #Daten für sich sprechen
-#      summary(OLS1)
-#   #Einschub, da Bill noch nicht numerisch ist 
-#   Bill   
-#   Bill<- as.numeric(Bill)
-#   #Determine the persisitence of the ode,
-#      #by determining the acf und p(partial)acf
-#      # acf beschreibt, ob es einen signifikanten zusammenhang zwischen
-#      #beobacteten Messeeregbnissen zu unterschiedlichen Beobachtungszeitpkt
-#      #gibt. richtung 1 bedeutet signifikanter zusammenhang
-#      # Kreuzkorrelation könnte auch interessant sein
-#     acf(Bill, main="ACF for Billing")
-#     pacf(Bill, main="PACF for Billing")
-#     #!acf ist nur aussagekräftig, wenn ich nicht 13 gleiche Billings habe!
-#     # müsste also zwei unterschiedlich große Matritzen erstellen?
-#     acf(Fc, main="ACF for Forecast and Order")
-#     pacf(Fc, main="PACF for Forecast and Order")
+ggplot(data=x1)+ geom_point(mapping = aes(x=Fc_and_order,y=diff))
+# declare time series variables
+Diff<-ts(x1$diff,start = c(201400),frequency = 12)
+Diff
+# bedeutet der startpunkt ist im dritten Monat von 1999 und die daten
+# gibt es vierteljählich (=4), wäres es monatlich wäre es 12
+Fc<- ts(x1$Fc_and_order,start = c(201400),frequency = 12)
+# plot the series
+autoplot(cbind(Diff,Fc))
 
-# änderungsvorschlag, wir nehmen die differenz, statt das Billing und Fc über 
-# Fc_date aufgetragen
+#OLS
+OLS1 <- lm(Diff~Fc)
+     # Fc ist independent, Diff ist dependent
+     # das heisst wir gehen davon aus, dass Diff von Fc abhängig ist,
+     # bei der VAR methode wissen wir es allerdings nicht und lassen die
+     #Daten für sich sprechen
+     summary(OLS1)
+ 
+  #Determine the persisitence of the ode,
+     #by determining the acf und p(partial)acf
+     # acf beschreibt, ob es einen signifikanten zusammenhang zwischen
+     #beobacteten Messeeregbnissen zu unterschiedlichen Beobachtungszeitpkt
+     #gibt. richtung 1 bedeutet signifikanter zusammenhang
+     # Kreuzkorrelation könnte auch interessant sein
+    acf(Diff, main="ACF for Difference")
+    pacf(Diff, main="PACF for Difference")
+    #!acf ist nur aussagekräftig, wenn ich nicht 13 gleiche Billings habe!
+    # müsste also zwei unterschiedlich große Matritzen erstellen?
+    acf(Fc, main="ACF for Forecast and Order")
+    pacf(Fc, main="PACF for Forecast and Order")
+
+    # finding the optimal Lags
+        # var braucht die anzahl der Autoregressive lags vorgegeben
+        okun.bv <- cbind(Diff, Fc)
+        # bindet die beiden Variablen aneinander
+        colnames(okun.bv) <- cbind("Difference","Fc Estimate")
+        # aendert den NAmen der Spalten
+
+        lagselect <- VARselect(okun.bv,lag.max = 100,type = "const")
+        # es soll die optimale anzahl an lags gefunden werden und es darf max
+        #10 lags geben. mit "const" wird angenommen, dass es keinen (saisonalen)
+        # Trend in den Daten gibt
+        lagselect$selection
+        # zeigt und die Daten der selection criteria an, diesen wert sollten wir
+        #im Var model als p nehmen
+
+        #building Var Model
+            # ModelOkun1 <- VAR(okun.bv,p = 2, type = "const", season = NULL, exog = NULL)
+            # # bedeutet man geht von keinen Saisonalen effekten und keinen Exoten aus
+            # summary(ModelOkun1)
+            # Auswertun:
+              # roots of the char... beschreibt ob unser system stabil ist (wenn alle
+              # Werte innerhalb des Unit circles sind)= keine strenuous? roots
+              # im p wert der Tabelle kann abglesen werden, ob es ein significantes
+              # lag gibt
+    
 # müssen überlegen, wie wir die Produkte mit inbeziehen 
 # Vorschlag, immer Matrix nach due Dates Producten und deren einzelner FOrecast,
 # und dessen differenz (wird sehr breit....)
