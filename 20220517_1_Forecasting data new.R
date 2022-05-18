@@ -120,6 +120,20 @@
   P19Fc12<-ts(x1$P19H12,start = c(201500),end = c(201600),frequency = 12)
   P19Fc13<-ts(x1$P19H13,start = c(201500),end = c(201600),frequency = 12)
   
+  
+  fit <- lm(P19Bill ~  P19H1 + P19H2 + P19H3 + P19H4 + P19H5 + P19H6 + P19H7 + P19H8 + P19H9 + P19H10 + P19H11 + P19H12 + P19H13, data=df)
+  summary (fit)
+  
+  plot(df$Due_date,df$P19Bill)
+  
+  coefficients(fit) # model coefficients
+  confint(fit, level=0.95) # CIs for model parameters 
+  fitted(fit) # predicted values
+  residuals(fit) # residuals
+  anova(fit) # anova table 
+  #install.packages("DAAG")
+  library(DAAG)
+  cv.lm(df, fit, m=3)
   # plot the series
   autoplot(cbind(P19Bill,P19Fc1,P19Fc2,P19Fc3,P19Fc4,P19Fc5,P19Fc6,P19Fc7,P19Fc8,P19Fc9,P19Fc10,P19Fc11,P19Fc12,P19Fc13))
   # 
