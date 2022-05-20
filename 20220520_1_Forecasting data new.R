@@ -81,7 +81,7 @@
     for(i in 1:dim(df)[2]) df[is.na(df[,i]),i] <- repl[i]
     #die werte in der Spalte mit index i werden ersetzt, wenn in dem i kein Wert steht
     x1 <- df
-    #x1<- x1[66:117,]
+    x1<- x1[14:222,]
     view(x1)
     #----------Einschub Ende
   
@@ -113,34 +113,74 @@
   
   
 # ------------------Forecasting-------------
-  P19Bill<- ts(x1$P19Bill,start = c(201600),end = c(201652),frequency = 1)
-  P20Bill<- ts(x1$P20Bill,start = c(201600),end = c(201652),frequency = 1)
-  P22Bill<- ts(x1$P22Bill,start = c(201600),end = c(201652),frequency = 1)
-  P30Bill<- ts(x1$P30Bill,start = c(201600),end = c(201652),frequency = 1)
-  P39Bill<- ts(x1$P39Bill,start = c(201600),end = c(201652),frequency = 1)
-  P48Bill<- ts(x1$P48Bill,start = c(201600),end = c(201652),frequency = 1)
-  P50Bill<- ts(x1$P50Bill,start = c(201600),end = c(201652),frequency = 1)
-  P55Bill<- ts(x1$P55Bill,start = c(201600),end = c(201652),frequency = 1)
-  P57Bill<- ts(x1$P57Bill,start = c(201600),end = c(201652),frequency = 1)
-  P67Bill<- ts(x1$P67Bill,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc1<-ts(x1$P19H1,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc2<-ts(x1$P19H2,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc3<-ts(x1$P19H3,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc4<-ts(x1$P19H4,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc5<-ts(x1$P19H5,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc6<-ts(x1$P19H6,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc7<-ts(x1$P19H7,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc8<-ts(x1$P19H8,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc9<-ts(x1$P19H9,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc10<-ts(x1$P19H10,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc11<-ts(x1$P19H11,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc12<-ts(x1$P19H12,start = c(201600),end = c(201652),frequency = 1)
-  P19Fc13<-ts(x1$P19H13,start = c(201600),end = c(201652),frequency = 1)
+  P19Bill<- ts(x1$P19Bill,frequency = 1)
+  P20Bill<- ts(x1$P20Bill,frequency = 1)
+  P22Bill<- ts(x1$P22Bill,frequency = 1)
+  P30Bill<- ts(x1$P30Bill,frequency = 1)
+  P39Bill<- ts(x1$P39Bill,frequency = 1)
+  P48Bill<- ts(x1$P48Bill,frequency = 1)
+  P50Bill<- ts(x1$P50Bill,frequency = 1)
+  P55Bill<- ts(x1$P55Bill,frequency = 1)
+  P57Bill<- ts(x1$P57Bill,frequency = 1)
+  P67Bill<- ts(x1$P67Bill,frequency = 1)
+  P19Fc1<-ts(x1$P19H1,frequency = 1)
+  P19Fc2<-ts(x1$P19H2,frequency = 1)
+  P19Fc3<-ts(x1$P19H3,frequency = 1)
+  P19Fc4<-ts(x1$P19H4,frequency = 1)
+  P19Fc5<-ts(x1$P19H5,frequency = 1)
+  P19Fc6<-ts(x1$P19H6,frequency = 1)
+  P19Fc7<-ts(x1$P19H7,frequency = 1)
+  P19Fc8<-ts(x1$P19H8,frequency = 1)
+  P19Fc9<-ts(x1$P19H9,frequency = 1)
+  P19Fc10<-ts(x1$P19H10,frequency = 1)
+  P19Fc11<-ts(x1$P19H11,frequency = 1)
+  P19Fc12<-ts(x1$P19H12,frequency = 1)
+  P19Fc13<-ts(x1$P19H13,frequency = 1)
+  P20Fc1<-ts(x1$P20H1,frequency = 1)
+  P20Fc2<-ts(x1$P20H2,frequency = 1)
+  P20Fc3<-ts(x1$P20H3,frequency = 1)
+  P20Fc4<-ts(x1$P20H4,frequency = 1)
+  P20Fc5<-ts(x1$P20H5,frequency = 1)
+  P20Fc6<-ts(x1$P20H6,frequency = 1)
+  P20Fc7<-ts(x1$P20H7,frequency = 1)
+  P20Fc8<-ts(x1$P20H8,frequency = 1)
+  P20Fc9<-ts(x1$P20H9,frequency = 1)
+  P20Fc10<-ts(x1$P20H10,frequency = 1)
+  P20Fc11<-ts(x1$P20H11,frequency = 1)
+  P20Fc12<-ts(x1$P20H12,frequency = 1)
+  P20Fc13<-ts(x1$P20H13,frequency = 1)
+  P30Fc1<-ts(x1$P30H1,frequency = 1)
+  P30Fc2<-ts(x1$P30H2,frequency = 1)
+  P30Fc3<-ts(x1$P30H3,frequency = 1)
+  P30Fc4<-ts(x1$P30H4,frequency = 1)
+  P30Fc5<-ts(x1$P30H5,frequency = 1)
+  P30Fc6<-ts(x1$P30H6,frequency = 1)
+  P30Fc7<-ts(x1$P30H7,frequency = 1)
+  P30Fc8<-ts(x1$P30H8,frequency = 1)
+  P30Fc9<-ts(x1$P30H9,frequency = 1)
+  P30Fc10<-ts(x1$P30H10,frequency = 1)
+  P30Fc11<-ts(x1$P30H11,frequency = 1)
+  P30Fc12<-ts(x1$P30H12,frequency = 1)
+  P30Fc13<-ts(x1$P30H13,frequency = 1)
+  P39Fc1<-ts(x1$P39H1,frequency = 1)
+  P39Fc2<-ts(x1$P39H2,frequency = 1)
+  P39Fc3<-ts(x1$P39H3,frequency = 1)
+  P39Fc4<-ts(x1$P39H4,frequency = 1)
+  P39Fc5<-ts(x1$P39H5,frequency = 1)
+  P39Fc6<-ts(x1$P39H6,frequency = 1)
+  P39Fc7<-ts(x1$P39H7,frequency = 1)
+  P39Fc8<-ts(x1$P39H8,frequency = 1)
+  P39Fc9<-ts(x1$P39H9,frequency = 1)
+  P39Fc10<-ts(x1$P39H10,frequency = 1)
+  P39Fc11<-ts(x1$P39H11,frequency = 1)
+  P39Fc12<-ts(x1$P39H12,frequency = 1)
+  P39Fc13<-ts(x1$P39H13,frequency = 1)
   
   
   # plot the series
-  #autoplot(cbind(P19Bill,P19Fc1,P19Fc2,P19Fc3,P19Fc4,P19Fc5,P19Fc6,P19Fc7,P19Fc8,P19Fc9,P19Fc10,P19Fc11,P19Fc12,P19Fc13))
-  autoplot(cbind(P19Bill,P20Bill,P22Bill,P30Bill,P39Bill,P48Bill,P50Bill,P55Bill,P57Bill,P67Bill))
+  autoplot(cbind(P19Bill,P19Fc1,P19Fc2,P19Fc3,P19Fc4,P19Fc5,P19Fc6,P19Fc7,P19Fc8,P19Fc9,P19Fc10,P19Fc11,P19Fc12,P19Fc13))
+  autoplot(cbind(P20Bill,P20Fc1,P20Fc2,P20Fc3,P20Fc4,P20Fc5,P20Fc6,P20Fc7,P20Fc8,P20Fc9,P20Fc10,P20Fc11,P20Fc12,P20Fc13))
+  #autoplot(cbind(P19Bill,P20Bill,P22Bill,P30Bill,P39Bill,P48Bill,P50Bill,P55Bill,P57Bill,P67Bill))
   # 
   # #OLS
   #OLS1 <- lm(P19Bill~P19Fc1)
@@ -164,7 +204,8 @@
 
       # finding the optimal Lags
           # var braucht die anzahl der Autoregressive lags vorgegeben
-          okun.bv <- cbind(P19Bill,P19Fc1,P19Fc2,P19Fc3,P19Fc4,P19Fc5,P19Fc6,P19Fc7,P19Fc8,P19Fc9,P19Fc10,P19Fc11,P19Fc12,P19Fc13)
+          #okun.bv <- cbind(P19Bill,P19Fc1,P19Fc2,P19Fc3,P19Fc4,P19Fc5,P19Fc6,P19Fc7,P19Fc8,P19Fc9,P19Fc10,P19Fc11,P19Fc12,P19Fc13)
+          okun.bv <- cbind(P20Bill,P20Fc1,P20Fc2,P20Fc3,P20Fc4,P20Fc5,P20Fc6,P20Fc7,P20Fc8,P20Fc9,P20Fc10,P20Fc11,P20Fc12,P20Fc13)
           #okun.bv<- cbind(P19Bill,P20Bill,P22Bill,P30Bill,P39Bill,P48Bill,P50Bill,P55Bill,P57Bill,P67Bill)
           # bindet die beiden Variablen aneinander
           #colnames(okun.bv) <- cbind("P19Billing","P19Fc1")
@@ -179,7 +220,7 @@
           #im Var model als p nehmen
 
           #building Var Model
-              ModelOkun1 <- VAR(okun.bv,p = 1, type = "const", season = NULL, exog = NULL)
+              ModelOkun1 <- VAR(okun.bv,p = 7, type = "const", season = NULL, exog = NULL)
               # bedeutet man geht von keinen Saisonalen effekten und keinen Exoten aus
               summary(ModelOkun1)
               # Auswertun:
@@ -191,7 +232,7 @@
            # hier würden jetzt einige tests kommen
             #forecast mit Var
             forecast <- predict(ModelOkun1,n.ahead = 13, ci = 0.95)
-            forecast$fcst
+            forecast$fcst$P20Bill
             fanchart(forecast, names ="P19Billing")
             fanchart(forecast, names ="P19 Fc1")
           # wie viele quaters ahead forecast werden, confidence intervall von 95% und das in
